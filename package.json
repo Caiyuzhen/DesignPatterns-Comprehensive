@@ -1,0 +1,23 @@
+{
+  "name": "designpatterns-comprehensive",
+  "version": "1.0.0",
+  "description": "DesignPatterns Comprehensive~",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Caiyuzhen/DesignPatterns-Comprehensive.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Caiyuzhen/DesignPatterns-Comprehensive/issues"
+  },
+  "homepage": "https://github.com/Caiyuzhen/DesignPatterns-Comprehensive#readme",
+  "devDependencies": {
+    "vite": "^4.0.4"
+  }
+}
