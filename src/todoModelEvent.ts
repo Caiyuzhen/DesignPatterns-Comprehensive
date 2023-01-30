@@ -1,15 +1,19 @@
+import TodoDOM from "./ToDoDOM";
 import { ITodoData } from "./type/typing";
 
 
 // Model 数据层
-class TodoModelEvent { //🔥里边的方法由上层 app.ts 调用
+class TodoModelEvent extends TodoDOM { //🔥里边的方法由上层 app.ts 调用
 	//从上层接收 todoData 数据(以确保 todoData 的唯一性)
 	private todoData: ITodoData[] = []
 
-	constructor(todoData: ITodoData[]) {
+	constructor(todoData: ITodoData[], todoWrapper: HTMLElement) {
+		super(todoWrapper) //🏓🏓 2.因为子类继承了 TodoDOM, 所以要 super 一下, 然后把 todoWrapper 传给 TodoDOM!!本质上传递的是 app.ts 内的 oTodoList !!
 		this.todoData = todoData
 	}
 
+
+	
 	// app.ts 上层要调用这些方法
 	addTodoData(todoData: ITodoData): undefined | number {
 		 // 内容去重

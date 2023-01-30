@@ -29,7 +29,10 @@ import TodoModelEvent  from './todoModelEvent'
 
 
 	// 实例化 TodoEvent
-	const todoModelEvent = new TodoModelEvent(todoData)//🔥🔥把 todoData 数据传给 TodoEvent 类！让它去修改数据!!
+	const todoModelEvent = new TodoModelEvent(//🔥🔥把 todoData 数据、oTodoList 传给 TodoEvent 类！让它去修改数据以及修改视图！
+		todoData, 
+		oTodoList //🏓🏓 1.父类传递给 TodoModelEvent 子类!
+	)
 
 
 	// 总开关
