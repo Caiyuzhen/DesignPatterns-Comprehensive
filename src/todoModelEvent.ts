@@ -2,7 +2,7 @@ import { ITodoData } from "./type/typing";
 
 
 // Model 数据层
-class TodoModelEvent {
+class TodoModelEvent { //🔥里边的方法由上层 app.ts 调用
 	//从上层接收 todoData 数据(以确保 todoData 的唯一性)
 	private todoData: ITodoData[] = []
 
