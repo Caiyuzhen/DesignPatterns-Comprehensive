@@ -20,7 +20,7 @@ class TodoTemplate {
 	protected todoViewTemp ({ id, content, completed }: ITodoData): string { //也是只暴露给 TodoDOM 这个子类!!
 		return `
 			<input type="checkbox" ${ completed ? 'checked' : ''} data-id="${ id }" />
-			<span style="text-decoration: ${ completed ? 'line-through' : 'none' }" > ${ content } </span>
+			<span style="text-decoration: ${ completed ? 'line-through' : 'none' }"> ${ content } </span>
 			<button data-id="${ id }">删除</button>
 		`
 	}
