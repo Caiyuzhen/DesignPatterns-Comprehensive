@@ -1,4 +1,5 @@
 import TodoDOM from "./ToDoDOM";
+import { getTodoList } from "./TodoService/TodoService";
 import { ITodoData } from "./type/typing";
 
 
@@ -10,11 +11,12 @@ class TodoModelEvent extends TodoDOM {
 	//从上层接收 todoData 数据(以确保 todoData 的唯一性)
 	private todoData: ITodoData[] = []
 
+
 	constructor(todoData: ITodoData[], todoWrapper: HTMLElement) {
 		super(todoWrapper) //🏓🏓 2.因为子类继承了 TodoDOM, 所以要 super 一下, 然后把 todoWrapper 传给 TodoDOM!!本质上传递的是 app.ts 内的 oTodoList !!
 		this.todoData = todoData
 
-		this.initDOM() //🚗🚗🚗 把数据中的已有 todo 渲染到 DOM 上
+		this.initDOM(this.todoData) //🚗🚗🚗 在操作数据前, 把数据中的已有 todo 渲染到 DOM 上!!
 	}
 
 
@@ -37,8 +39,10 @@ class TodoModelEvent extends TodoDOM {
 	}
 
 
-	//🚗🚗🚗 把数据中的已有 todo 渲染到 DOM 上
-	private initDOM () {
+	//🚗🚗🚗 在操作数据前, 把数据中的已有 todo 渲染到 DOM 上!!
+	@getTodoList //装饰器, 先去请求数据, 把数据传给 initDOM
+	private initDOM (newTodoData: ITodoData[]) {
+		this.todoData = newTodoData //constructor 中的 this.todoData 重新赋值给 newTodoData (🔥🔥🔥相当于请求完 api 后的数据, 把数据传给 constructor 中的 this.todoData)
 		this.initList(this.todoData)//拿到初始化的数据
 	}
 
