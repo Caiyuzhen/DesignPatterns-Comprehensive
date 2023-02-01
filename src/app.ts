@@ -3,7 +3,7 @@ import { ITodoData } from './type/typing'
 import TodoModelEvent  from './todoModelEvent'
 
 
-// Event 事件层
+// Event 事件层 (就负责用来调用 数据操作跟 DOM 操作的方法)
 ((doc) => {
 	const oInput: HTMLInputElement = doc.querySelector('input') as HTMLInputElement
 	const oAddBtn: HTMLButtonElement = doc.querySelector('.add-btn') as HTMLButtonElement

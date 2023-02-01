@@ -13,6 +13,8 @@ class TodoModelEvent extends TodoDOM {
 	constructor(todoData: ITodoData[], todoWrapper: HTMLElement) {
 		super(todoWrapper) //🏓🏓 2.因为子类继承了 TodoDOM, 所以要 super 一下, 然后把 todoWrapper 传给 TodoDOM!!本质上传递的是 app.ts 内的 oTodoList !!
 		this.todoData = todoData
+
+		this.initDOM() //🚗🚗🚗 把数据中的已有 todo 渲染到 DOM 上
 	}
 
 
@@ -24,14 +26,20 @@ class TodoModelEvent extends TodoDOM {
 		 const _isExist: ITodoData | undefined = this.todoData.find((item: ITodoData) =>item.content === todoData.content)
 
 		// 重复则提醒, 不重复则添加
-		if(_isExist) {
-			// alert('内容已存在') //🔥不要在这里 alert, 要在 app.ts 上 alert
-			return 404 //返回错误码
+		if(!_isExist) {
+			this.todoData.push(todoData)
+			this.addItemDOM(todoData) //🔥调用父类的 addItemDOM 方法（因为有继承关系！）
+			return //return 后就是 undefined
 		} 
 
-		 this.todoData.push(todoData)
-		 this.addItemDOM(todoData) //🔥调用父类的 addItemDOM 方法（因为有继承关系！）
-		 return //return 后就是 undefined
+		// alert('内容已存在') //🔥不要在这里 alert, 要在 app.ts 上 alert
+		return 404 //返回错误码
+	}
+
+
+	//🚗🚗🚗 把数据中的已有 todo 渲染到 DOM 上
+	private initDOM () {
+		this.initList(this.todoData)//拿到初始化的数据
 	}
 
 
