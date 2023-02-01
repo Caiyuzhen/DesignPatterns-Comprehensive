@@ -2,7 +2,8 @@ import express, { Application } from 'express';
 import { readFileSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 import bodyParse from 'body-parser'; //因为还有 post 请求, 所以需要用到 body-parser
-import { readFn } from './utils/ReadFile';
+import { readFileFn, writeFileFn } from './utils/changeFile';
+import { ITodoData } from './typing';
 
 
 const app: Application = express()
@@ -22,7 +23,7 @@ console.log('Hellow Express')
 // 请求所有 todoList 列表的 api
 app.get('/todolist', function (req, res) {
 	// 读取文件(🌟方法一: 通过工具函数读取, 传入路径即可)
-	const todoList: string = readFn('../todo.json')
+	const todoList: string = readFileFn('../todo.json')
 
 	// 读取文件(🌟方法二: 直接写)
 	// const todoList: string = readFileSync(resolve(__dirname, 'todo.json'), 'utf-8') //路径、编码格式
@@ -41,9 +42,25 @@ app.get('/add', function (req, res) {
 
 
 
-// checkbox 状态的 api(🔥因为需要 id 所以用 post 请求)
-app.post('/toggle', function (req, res) {
+// 移除 Todo 的 api(🔥因为需要 id 所以用 post 请求)
+app.post('/remove', function (req, res) {
+	// 拿到 post 过来的 id
+	const id: number = parseInt(req.body.id) //从请求体中拿到 id
 
+	// 读取文件(🌟方法一: 通过工具函数读取, 传入路径即可)
+	let todoList: ITodoData[] = JSON.parse(readFileFn('../todo.json ') || '[]') //如果没内容的话,就是空数组, JSON.parse 是将数据转为 JSON 格式
+
+	// 修改文件
+	todoList = todoList.filter((todo: ITodoData) => todo.id !== id) 
+
+	// 写入修改后的文件(🌟工具函数)
+	writeFileFn('../todo.json', todoList)
+
+	// 响应回前端 send() 方法
+	res.send({
+		msg: 'ok',
+		statusCode: '200'
+	})
 })
 
 

@@ -1,5 +1,5 @@
 import TodoDOM from "./ToDoDOM";
-import { getTodoList } from "./TodoService/TodoService";
+import { getTodoList, removeTodo } from "./TodoService/TodoService";
 import { ITodoData } from "./type/typing";
 
 
@@ -48,6 +48,7 @@ class TodoModelEvent extends TodoDOM {
 
 
 	// 移除 todo 数据
+	@removeTodo
 	public removeTodoData(_id: number, targetDelBtn: HTMLElement): void {
 		this.todoData = this.todoData.filter((item: ITodoData) => item.id !== _id)
 		this.removeItemDOM(targetDelBtn)//🔥调用父类的 removeItemDOM 方法（因为有继承关系！）
