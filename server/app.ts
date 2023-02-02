@@ -48,7 +48,7 @@ app.post('/remove', function (req, res) {
 	const id: number = parseInt(req.body.id) //从请求体中拿到 id
 
 	// 读取文件(🌟方法一: 通过工具函数读取, 传入路径即可)
-	let todoList: ITodoData[] = JSON.parse(readFileFn('../todo.json ') || '[]') //如果没内容的话,就是空数组, JSON.parse 是将数据转为 JSON 格式
+	let todoList: ITodoData[] = JSON.parse(readFileFn('../todo.json ') || '[]') //如果没数据内容的话,就是空数组, JSON.parse 是将数据转为 JSON 格式
 
 	// 修改文件
 	todoList = todoList.filter((todo: ITodoData) => todo.id !== id) 

@@ -40,15 +40,14 @@ export function removeTodo ( //重写的时候记得传入参数(原有函数的
 	// 首先保存一下原有的 removeTodoData() 方法
 	const _origin = descriptor.value
 
-
 	// 重写原有的 removeTodoData() 方法
-	descriptor.value = function (id: number, targetDelBtn: HTMLElement): void {
-		$.post('http://localhost:8080/remove', {id}).then((res) => { //路由 传入 id
+	descriptor.value = function (_id: number, targetDelBtn: HTMLElement): void {
+		$.post('http://localhost:8080/remove', { _id }).then((res) => { //路由 传入 id
 
 			// 可以通过 res 判断成不成功...
 
 			// 不用接收返回值, 就直接传入参数, 重写完函数就好了
-			_origin.call(this, id, targetDelBtn) //🔥🔥🔥这个 id 相当于传进了 removeTodoData() 方法的参数中!!
+			_origin.call(this, _id, targetDelBtn) //🔥🔥🔥这个 id 相当于传进了 removeTodoData() 方法的参数中!!
 		})
 	}
 }
