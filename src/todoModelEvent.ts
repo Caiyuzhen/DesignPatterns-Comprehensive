@@ -1,5 +1,5 @@
 import TodoDOM from "./ToDoDOM";
-import { getTodoList, removeTodo } from "./TodoService/TodoService";
+import { addTodoJSON, getTodoListJSON, removeTodoJSON, toggleTodoJSON } from "./TodoService/TodoService";
 import { ITodoData } from "./type/typing";
 
 
@@ -23,9 +23,10 @@ class TodoModelEvent extends TodoDOM {
 	
 	// 🔥app.ts 上层要调用这些方法
 	// 添加 todo 数据
+	@addTodoJSON
 	public addTodoData(todoData: ITodoData): undefined | number {
 		 // 内容去重
-		 const _isExist: ITodoData | undefined = this.todoData.find((item: ITodoData) =>item.content === todoData.content)
+		 const _isExist: ITodoData | undefined = this.todoData.find((item: ITodoData) => item.content === todoData.content)
 
 		// 重复则提醒, 不重复则添加
 		if(!_isExist) {
@@ -40,7 +41,7 @@ class TodoModelEvent extends TodoDOM {
 
 
 	//🚗🚗🚗 在操作数据前, 把数据中的已有 todo 渲染到 DOM 上!!
-	@getTodoList //装饰器, 先去请求数据, 把数据传给 initDOM
+	@getTodoListJSON //装饰器, 先去请求数据, 把数据传给 initDOM
 	private initDOM (newTodoData: ITodoData[]) {
 		this.todoData = newTodoData //constructor 中的 this.todoData 重新赋值给 newTodoData (🔥🔥🔥相当于请求完 api 后的数据, 把数据传给 constructor 中的 this.todoData)
 		this.initList(this.todoData)//拿到初始化的数据
@@ -48,7 +49,7 @@ class TodoModelEvent extends TodoDOM {
 
 
 	// 移除 todo 数据
-	@removeTodo
+	@removeTodoJSON
 	public removeTodoData(_id: number, targetDelBtn: HTMLElement): void {
 		this.todoData = this.todoData.filter((item: ITodoData) => item.id !== _id)
 		this.removeItemDOM(targetDelBtn)//🔥调用父类的 removeItemDOM 方法（因为有继承关系！）
@@ -56,6 +57,7 @@ class TodoModelEvent extends TodoDOM {
 
 
 	// checkbox 数据
+	@toggleTodoJSON
 	public toggleTodoCompleteData(_id: number, target: HTMLElement): void {
 		this.todoData = this.todoData.map((item: ITodoData) => {
 			if(item.id === _id) {
